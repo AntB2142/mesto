@@ -1,0 +1,14 @@
+.grid-elements__title {
+    font-size: 1.5rem;
+    line-height: 1.812rem;
+    font-weight: 900;
+    max-width: 198px;
+    width: 100%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    margin-block-start: 0;
+    margin-block-end: 0;
+    padding-left: 21px;
+    text-align: start;
+}

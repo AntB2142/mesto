@@ -1,0 +1,6 @@
+.grid-elements__element {
+    display: block;
+    position: relative;
+    background-color: #ffffff;
+    border-radius: 10px;
+}

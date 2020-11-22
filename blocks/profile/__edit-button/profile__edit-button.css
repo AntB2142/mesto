@@ -1,0 +1,25 @@
+.profile__edit-button {
+    background: url("../../../images/profile__edit-button.png") center no-repeat;
+    width: 24px;
+    height: 24px;
+    border: 1px solid #ffffff;
+    margin: 0;
+    margin-left: 18px;
+    box-sizing: border-box;
+    align-self: center;
+    padding: 0;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 768px) {
+    .profile__edit-button {
+        width: 18px;
+        height: 18px;
+        align-self: end;
+        margin-bottom: 5.25px;
+    }
+}
+
+.profile__edit-button:hover {
+    opacity: 0.6;
+}

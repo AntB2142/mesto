@@ -1,0 +1,15 @@
+.popup__form {
+    display: flex;
+    flex-direction: column;
+    width: calc(100% - 36px*2);
+    margin: auto;
+    box-sizing: border-box;
+    border-color: rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+}
+
+@media screen and (max-width: 768px) {
+    .popup__form {
+        width: calc(100% - 22px*2);
+    }
+}

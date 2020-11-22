@@ -1,0 +1,23 @@
+.profile {
+    display: grid;
+    grid-template-columns: 1fr 5fr 1fr;
+    margin: 0 auto;
+    width: calc(100% - 2 * 200px);
+    margin-top: 40px;
+    justify-content: center;
+    align-items: center;
+}
+
+@media screen and (max-width: 1024px) {
+    .profile {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .profile {
+        width: calc(100% - 2 * 19px);
+        max-height: 286px;
+    }
+}

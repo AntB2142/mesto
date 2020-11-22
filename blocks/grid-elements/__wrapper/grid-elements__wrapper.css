@@ -1,0 +1,5 @@
+.grid-elements__wrapper {
+    position: relative;
+    margin: 25px 0 31px 0px;
+    display: flex;
+}

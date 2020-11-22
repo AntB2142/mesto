@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./pages/index.css">
+    <title>Mesto Russia</title>
+</head>
+
+<body class="page">
+    <section class="header">
+    
+      <img class="header__logo" src="./images/logo.svg" alt="Логотип">
+          
+          </section>
+    <main class="content">
+        <section class="profile">
+            <img class="profile__avatar" src="./images/avatar.jpg" alt="Аватар">
+            <div class="profile__info">
+              
+              <h1 class="profile__title">Жак-Ив Кусто</h1>
+              <button type="button" class="profile__edit-button"> </button>
+            
+         <p class="profile__subtitle">Исследователь океана</p>
+        </div>
+         <button type="button" class="profile__add-button"></button>
+          </section>
+          <section class="elements">
+            <ul class="grid-elements">
+              <li class="grid-elements__element">
+                <img class="grid-elements__img" src="./images/1.png" alt="Изображение">
+                <div class="grid-elements__wrapper">
+                  <h2 class="grid-elements__title">Карачаевск</h2>
+                  <button type="button" class="grid-elements__like"></button>
+                </div>
+              </li>
+              <li class="grid-elements__element">
+                <img class="grid-elements__img" src="./images/2.png" alt="Изображение">
+                <div class="grid-elements__wrapper">
+                  <h2 class="grid-elements__title">Гора Эльбрус</h2>
+                  <button type="button" class="grid-elements__like"></button>
+                </div>
+              </li>
+              <li class="grid-elements__element">
+                <img class="grid-elements__img" src="./images/3.png" alt="Изображение">
+                <div class="grid-elements__wrapper">
+                  <h2 class="grid-elements__title">Домбай</h2>
+                  <button type="button" class="grid-elements__like"></button>
+                </div>
+              </li>
+              <li class="grid-elements__element">
+                <img class="grid-elements__img" src="./images/4.png" alt="Изображение">
+                <div class="grid-elements__wrapper">
+                  <h2 class="grid-elements__title">Гора Эльбрус</h2>
+                  <button type="button" class="grid-elements__like"></button>
+                </div>
+              </li>
+              <li class="grid-elements__element">
+                <img class="grid-elements__img" src="./images/5.png" alt="Изображение">
+                <div class="grid-elements__wrapper">
+                  <h2 class="grid-elements__title">Домбай</h2>
+                  <button type="button" class="grid-elements__like"></button>
+                </div>
+              </li>
+              <li class="grid-elements__element">
+                <img class="grid-elements__img" src="./images/6.png" alt="Изображение">
+                <div class="grid-elements__wrapper">
+                  <h2 class="grid-elements__title">Карачаево-Черкессия</h2>
+                  <button type="button" class="grid-elements__like"></button>
+                </div>
+              </li>
+            </ul>
+          </section>
+        </main>
+        <footer class="footer">
+          <p class="footer__copyright">© 2020 Mesto Russia</p>
+        </footer>
+        <section class="popup">
+          <div class="popup__container">
+            <form class="popup__form" name="form" action=".">
+              <button type="button" class="popup__close"></button>
+              <h2 class="popup__title">Редактировать профиль</h2>
+              <input type="text" name="name" class="popup__input popup__input_type_name">
+        <input type="text" name="status" class="popup__input popup__input_type_status">
+        <button type="submit" class="popup__submit">Сохранить</button>
+      </form>
+          </div>
+        </section>
+        <script src="./blocks/scripts/index.js"></script>
+</body>
+
+</html>
