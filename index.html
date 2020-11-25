@@ -9,11 +9,11 @@
 </head>
 
 <body class="page">
-    <section class="header">
+    <header>
 
         <img class="header__logo" src="./images/logo.svg" alt="Логотип">
 
-    </section>
+    </header>
     <main class="content">
         <section class="profile">
             <img class="profile__avatar" src="./images/avatar.jpg" alt="Аватар">
@@ -81,8 +81,8 @@
             <form class="popup__form" name="form" action=".">
                 <button type="button" class="popup__close"></button>
                 <h2 class="popup__title">Редактировать профиль</h2>
-                <input type="text" name="name" class="popup__input popup__input_type_name">
-                <input type="text" name="status" class="popup__input popup__input_type_status">
+                <input type="text" class="popup__input" id="name">
+                <input type="text" class="popup__input" id="status">
                 <button type="submit" class="popup__submit">Сохранить</button>
             </form>
         </div>
