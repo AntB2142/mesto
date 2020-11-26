@@ -6,8 +6,15 @@
     min-height: 73px;
 }
 
+@media screen and (max-width: 1048px) {
+    .profile__info {
+        grid-template-columns: 3.5fr 0.7fr;
+    }
+}
+
 @media screen and (max-width: 768px) {
     .profile__info {
+        grid-template-columns: 5fr 0.7fr;
         justify-content: center;
         text-align: center;
     }
