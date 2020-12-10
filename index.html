@@ -25,66 +25,56 @@
             <button type="button" class="profile__add-button"></button>
         </section>
         <section class="elements">
-            <ul class="grid-elements">
-                <li class="grid-elements__element">
-                    <img class="grid-elements__img" src="./images/1.png" alt="Изображение">
-                    <div class="grid-elements__wrapper">
-                        <h2 class="grid-elements__title">Карачаевск</h2>
-                        <button type="button" class="grid-elements__like"></button>
-                    </div>
-                </li>
-                <li class="grid-elements__element">
-                    <img class="grid-elements__img" src="./images/2.png" alt="Изображение">
-                    <div class="grid-elements__wrapper">
-                        <h2 class="grid-elements__title">Гора Эльбрус</h2>
-                        <button type="button" class="grid-elements__like"></button>
-                    </div>
-                </li>
-                <li class="grid-elements__element">
-                    <img class="grid-elements__img" src="./images/3.png" alt="Изображение">
-                    <div class="grid-elements__wrapper">
-                        <h2 class="grid-elements__title">Домбай</h2>
-                        <button type="button" class="grid-elements__like"></button>
-                    </div>
-                </li>
-                <li class="grid-elements__element">
-                    <img class="grid-elements__img" src="./images/4.png" alt="Изображение">
-                    <div class="grid-elements__wrapper">
-                        <h2 class="grid-elements__title">Гора Эльбрус</h2>
-                        <button type="button" class="grid-elements__like"></button>
-                    </div>
-                </li>
-                <li class="grid-elements__element">
-                    <img class="grid-elements__img" src="./images/5.png" alt="Изображение">
-                    <div class="grid-elements__wrapper">
-                        <h2 class="grid-elements__title">Домбай</h2>
-                        <button type="button" class="grid-elements__like"></button>
-                    </div>
-                </li>
-                <li class="grid-elements__element">
-                    <img class="grid-elements__img" src="./images/6.png" alt="Изображение">
-                    <div class="grid-elements__wrapper">
-                        <h2 class="grid-elements__title">Карачаево-Черкессия</h2>
-                        <button type="button" class="grid-elements__like"></button>
-                    </div>
-                </li>
-            </ul>
+          
+          <ul class="grid-elements">
+           
+          </ul>
+ 
         </section>
     </main>
     <footer class="footer">
         <p class="footer__copyright">© 2020 Mesto Russia</p>
     </footer>
-    <section class="popup">
+    <section class="popup" id="editPopup">
         <div class="popup__container">
-            <form class="popup__form" name="form" action=".">
+          <form class="popup__form" id="formEdit" name="dataEdit" action=".">
                 <button type="button" class="popup__close"></button>
                 <h2 class="popup__title">Редактировать профиль</h2>
-                <input type="text" class="popup__input" id="name">
-                <input type="text" class="popup__input" id="status">
+                <input type="text" class="popup__input" required value="Жак-Ив Кусто" name="name" placeholder="Имя">
+                <input type="text" class="popup__input" required value="Исследователь океана" name="status" placeholder="Статус">
                 <button type="submit" class="popup__submit">Сохранить</button>
             </form>
         </div>
     </section>
+    <section class="popup" id="addPopup">
+      <div class="popup__container">
+        <form class="popup__form" id="formAdd" name="dataEdit" action=".">
+              <button type="button" class="popup__close"></button>
+              <h2 class="popup__title">Новое место</h2>
+              <input type="text" class="popup__input" required value="" name="title" placeholder="Название">
+              <input type="text" class="popup__input"  required value="" name="image" placeholder="Ссылка на картинку">
+              <button type="submit" class="popup__submit">Создать</button>
+          </form>
+      </div>
+  </section>
+  <section class="popup" id="fullPopup">
+    <div class="popup__full">
+      <button type="button" class="popup__close"></button>
+      <img src="#" alt="#" class="popup__img">
+      <p class="popup__full-title"></p>
+    </div>
+  </section>
+  <template id="temlateElements">
+    <li class="grid-elements__element">
+      <img class="grid-elements__img" src="#" alt="Картинка">
+      <button type="button" class="grid-elements__delete"></button>
+      <div class="grid-elements__wrapper">
+        <h2 class="grid-elements__title"></h2>
+        <button type="button" class="grid-elements__like"></button>
+      </div>
+    </li>
+  </template>
+  <script src="./scripts/initial-newElements.js"></script>
     <script src="./scripts/index.js"></script>
 </body>
 

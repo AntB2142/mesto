@@ -14,3 +14,8 @@
 .grid-elements__like:hover {
     opacity: 0.6;
 }
+
+.grid-elements__like:focus {
+    border: 0;
+    outline: none;
+}
