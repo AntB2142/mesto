@@ -17,20 +17,20 @@ const imgLinkInput = formAdd.querySelector('input[name="image"]');
 const popupFull = document.querySelector("#fullPopup");
 const popupFullImg = popupFull.querySelector(".popup__img");
 const popupFullClose = popupFull.querySelector(".popup__close");
-
+const popup = document.querySelector(".popup");
 
 const grid = document.querySelector(".grid-elements");
 const templateContent = document.querySelector("#temlateElements").content;
 
 const init = () => {
-    editButton.addEventListener("click", () => openPopup("editPopup"));
-    addButton.addEventListener("click", () => openPopup("addPopup"));
+    editButton.addEventListener("click", () => openPopup(popupEdit));
+    addButton.addEventListener("click", () => openPopup(popupAdd));
     formEdit.addEventListener("submit", submitEdit);
     formAdd.addEventListener("submit", submitAdd);
+    popupEditClose.addEventListener('click', () => closePopup(popupEdit));
+    popupAddClose.addEventListener('click', () => closePopup(popupAdd));
+    popupFullClose.addEventListener('click', () => closePopup(popupFull));
 
-    [popupEditClose, popupAddClose, popupFullClose].forEach(button => {
-        button.addEventListener("click", (e) => closePopup(e))
-    });
 
 
     newElements.forEach((elem) => {
@@ -53,7 +53,7 @@ const createCard = (elem) => {
         popupFullImg.src = e.target.currentSrc;
         popupFullImg.alt = e.target.alt;
         popupFull.querySelector(".popup__full-title").textContent = e.target.alt;
-        openPopup("fullPopup");
+        openPopup(popupFull);
     })
 
     newElement.querySelector(".grid-elements__like").addEventListener("click", (e) => {
@@ -65,8 +65,7 @@ const createCard = (elem) => {
 
     newElement.querySelector(".grid-elements__delete").addEventListener("click", (e) => {
 
-        newElements.splice(newElements.findIndex(temlateElements => temlateElements.name === e.target.offsetParent.querySelector(".grid-elements__title").innerText), 1)
-        e.target.offsetParent.remove();
+        e.target.closest('.grid-elements__element').remove();
     })
 
     return newElement;
@@ -76,31 +75,19 @@ const addElementToDOM = (elem) => {
     grid.prepend(createCard(elem));
 }
 
-const openPopup = (type) => {
-    switch (type) {
-        case "editPopup":
-            popupEdit.classList.add("popup__opened");
-            nameInput.value = showTitle.textContent;
-            statusInput.value = showStatus.textContent;
-            break;
-
-        case "addPopup":
-            popupAdd.classList.add("popup__opened");
-            break;
-
-        case "fullPopup":
-            popupFull.classList.add("popup__opened");
-            break;
-    }
+const openPopup = (popup) => {
+    popup.classList.add("popup__opened");
 }
 
-const closePopup = (elem) => {
-    elem.target.closest(".popup").classList.toggle("popup__opened");
+const closePopup = (popup) => {
+    popup.classList.remove("popup__opened");
 }
 
 const profileValue = (title, status) => {
     showTitle.textContent = title;
     showStatus.textContent = status;
+    nameInput.value = showTitle.textContent;
+    statusInput.value = showStatus.textContent;
 }
 
 const submitEdit = (e) => {
@@ -108,14 +95,15 @@ const submitEdit = (e) => {
     if (nameInput && statusInput) {
         profileValue(nameInput.value, statusInput.value);
     }
-    closePopup(e);
+
+    closePopup(popupEdit);
 }
 
 const submitAdd = (e) => {
     e.preventDefault();
     const submitValue = { "name": imgTitleInput.value, 'link': imgLinkInput.value };
     addElementToDOM(submitValue);
-    closePopup(e);
+    closePopup(popupAdd);
 }
 
 
