@@ -37,22 +37,34 @@
     </footer>
     <section class="popup" id="editPopup">
         <div class="popup__container">
-            <form class="popup__form" id="formEdit" name="dataEdit" action=".">
+            <form class="popup__form" id="formEdit" name="dataEdit" action="." novalidate>
                 <button type="button" class="popup__close"></button>
                 <h2 class="popup__title">Редактировать профиль</h2>
-                <input type="text" class="popup__input" required value="Жак-Ив Кусто" name="name" placeholder="Имя">
-                <input type="text" class="popup__input" required value="Исследователь океана" name="status" placeholder="Статус">
+                <div class="popup__input-container">
+                    <input type="text" class="popup__input" required value="Жак-Ив Кусто" name="name" placeholder="Имя" minlength="2" maxlength="40">
+                    <span id="name-error" class="popup__error"></span>
+                </div>
+                <div class="popup__input-container">
+                    <input type="text" class="popup__input" required value="Исследователь океана" name="status" placeholder="Статус" minlength="2" maxlength="200">
+                    <span id="status-error" class="popup__error"></span>
+                </div>
                 <button type="submit" class="popup__submit">Сохранить</button>
             </form>
         </div>
     </section>
     <section class="popup" id="addPopup">
         <div class="popup__container">
-            <form class="popup__form" id="formAdd" name="dataEdit" action=".">
+            <form class="popup__form" id="formAdd" name="dataEdit" action="." novalidate>
                 <button type="button" class="popup__close"></button>
                 <h2 class="popup__title">Новое место</h2>
-                <input type="text" class="popup__input" required value="" name="title" placeholder="Название">
-                <input type="text" class="popup__input" required value="" name="image" placeholder="Ссылка на картинку">
+                <div class="popup__input-container">
+                    <input type="text" class="popup__input" required value="" name="title" placeholder="Название" minlength="2" maxlength="30">
+                    <span id="title-error" class="popup__error"></span>
+                </div>
+                <div class="popup__input-container">
+                    <input type="url" class="popup__input" required value="" name="image" placeholder="Ссылка на картинку">
+                    <span id="image-error" class="popup__error"></span>
+                </div>
                 <button type="submit" class="popup__submit">Создать</button>
             </form>
         </div>
@@ -74,8 +86,10 @@
       </div>
     </li>
   </template>
+
     <script src="./scripts/initial-newElements.js"></script>
     <script src="./scripts/index.js"></script>
+    <script src="./scripts/validate.js"></script>
 </body>
 
 </html>

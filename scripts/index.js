@@ -77,10 +77,12 @@ const addElementToDOM = (elem) => {
 
 const openPopup = (popup) => {
     popup.classList.add("popup__opened");
+    document.addEventListener("keydown", closeEscape);
 }
 
 const closePopup = (popup) => {
     popup.classList.remove("popup__opened");
+    document.removeEventListener("keydown", closeEscape);
 }
 
 const profileValue = (title, status) => {
@@ -92,10 +94,7 @@ const profileValue = (title, status) => {
 
 const submitEdit = (e) => {
     e.preventDefault();
-    if (nameInput && statusInput) {
-        profileValue(nameInput.value, statusInput.value);
-    }
-
+    profileValue(nameInput.value, statusInput.value);
     closePopup(popupEdit);
 }
 
@@ -108,6 +107,19 @@ const submitAdd = (e) => {
 
 
 
-
-
+const closeEscape = (e) => {
+    const key = e.key;
+    if (key === "Escape") {
+        const openedPopup = document.querySelector(".popup__opened")
+        closePopup(openedPopup);
+    }
+}
+const overlayClick = function(e) {
+    if (e.target == this) {
+        closePopup(e.target)
+    }
+}
+popupFull.addEventListener('click', overlayClick);
+popupAdd.addEventListener('click', overlayClick);
+popupEdit.addEventListener('click', overlayClick);
 init();
