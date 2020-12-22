@@ -23,15 +23,24 @@ const grid = document.querySelector(".grid-elements");
 const templateContent = document.querySelector("#temlateElements").content;
 
 const init = () => {
-    editButton.addEventListener("click", () => openPopup(popupEdit));
-    addButton.addEventListener("click", () => openPopup(popupAdd));
+    editButton.addEventListener('click', () => {
+        openPopup(popupEdit);
+        nameInput.value = showTitle.textContent;
+        statusInput.value = showStatus.textContent;
+    });
+
+    addButton.addEventListener('click', () => {
+        openPopup(popupAdd);
+        const submitButton = popupAdd.querySelector(validationConfig.submitButtonSelector);
+        validationButton(submitButton, false, validationConfig);
+        formAdd.reset();
+    });
+
     formEdit.addEventListener("submit", submitEdit);
     formAdd.addEventListener("submit", submitAdd);
     popupEditClose.addEventListener('click', () => closePopup(popupEdit));
     popupAddClose.addEventListener('click', () => closePopup(popupAdd));
     popupFullClose.addEventListener('click', () => closePopup(popupFull));
-
-
 
     newElements.forEach((elem) => {
         addElementToDOM(elem);
@@ -54,14 +63,12 @@ const createCard = (elem) => {
         popupFullImg.alt = e.target.alt;
         popupFull.querySelector(".popup__full-title").textContent = e.target.alt;
         openPopup(popupFull);
+
     })
 
     newElement.querySelector(".grid-elements__like").addEventListener("click", (e) => {
         e.target.classList.toggle("grid-elements__like_active");
     });
-
-
-
 
     newElement.querySelector(".grid-elements__delete").addEventListener("click", (e) => {
 
@@ -78,11 +85,16 @@ const addElementToDOM = (elem) => {
 const openPopup = (popup) => {
     popup.classList.add("popup__opened");
     document.addEventListener("keydown", closeEscape);
+
+
 }
 
 const closePopup = (popup) => {
     popup.classList.remove("popup__opened");
     document.removeEventListener("keydown", closeEscape);
+    deleteSpanError();
+    deleteTypeError();
+
 }
 
 const profileValue = (title, status) => {
@@ -90,6 +102,7 @@ const profileValue = (title, status) => {
     showStatus.textContent = status;
     nameInput.value = showTitle.textContent;
     statusInput.value = showStatus.textContent;
+
 }
 
 const submitEdit = (e) => {
@@ -105,8 +118,6 @@ const submitAdd = (e) => {
     closePopup(popupAdd);
 }
 
-
-
 const closeEscape = (e) => {
     const key = e.key;
     if (key === "Escape") {
@@ -114,12 +125,37 @@ const closeEscape = (e) => {
         closePopup(openedPopup);
     }
 }
+
 const overlayClick = function(e) {
-    if (e.target == this) {
+
+    if (e.target === this) {
+
         closePopup(e.target)
     }
 }
+
 popupFull.addEventListener('click', overlayClick);
 popupAdd.addEventListener('click', overlayClick);
 popupEdit.addEventListener('click', overlayClick);
+
+const deleteSpanError = () => {
+    const errorSpan = document.querySelectorAll('.popup__error');
+    errorSpan.forEach(span => {
+        if (span) {
+            span.textContent = '';
+
+            const submitButton = formEdit.querySelector('.popup__submit');
+            validationButton(submitButton, true, validationConfig);
+        }
+    });
+}
+
+const deleteTypeError = () => {
+    const errorType = document.querySelectorAll('.popup__input_error');
+    errorType.forEach(type => {
+        if (type) {
+            type.classList.remove('popup__input_error');
+        }
+    });
+}
 init();

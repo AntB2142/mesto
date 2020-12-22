@@ -1,6 +1,7 @@
 function showError(form, input, config) {
     const error = form.querySelector(`#${input.name}-error`);
     error.textContent = input.validationMessage;
+    error.classList.add(config.errorClass);
     input.classList.add(config.inputErrorClass);
 }
 
@@ -8,6 +9,7 @@ function hideError(form, input, config) {
     const error = form.querySelector(`#${input.name}-error`);
     error.textContent = "";
     input.classList.remove(config.inputErrorClass);
+    error.classList.remove(config.errorClass);
 }
 
 function checkInputValidity(form, input, config) {
@@ -56,9 +58,12 @@ function enableValidation(config) {
 const validationConfig = {
     formSelector: ".popup__form",
     inputSelector: ".popup__input",
-    submitButtonSelector: " .popup__submit",
+    submitButtonSelector: ".popup__submit",
     inactiveButtonClass: "popup__submit_disabled",
-    inputErrorClass: "popup__input_error"
+    inputErrorClass: "popup__input_error",
+    errorClass: "popup__error"
 
 };
+
+
 enableValidation(validationConfig);
