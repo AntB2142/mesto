@@ -1,10 +1,10 @@
+import "../pages/index.css";
 import Section from "../components/Section.js";
 import Card from "../components/Card.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import UserInfo from "../components/UserInfo.js";
 import FormValidator from "../components/FormValidator.js";
-import Popup from "../components/Popup.js";
 import {
     popupEdit,
     popupAdd,
@@ -23,7 +23,15 @@ import {
 } from "../utils/constants.js";
 
 const addFormValidator = new FormValidator(validationConfig, formAdd);
+addFormValidator.enableValidation();
 const editFormValidator = new FormValidator(validationConfig, formEdit);
+editFormValidator.enableValidation();
+
+function createCard(item, popupSelector, handleCardClick) {
+    const cardItem = new Card(item, popupSelector, handleCardClick);
+    const card = cardItem.generateCard();
+    return card;
+}
 
 const fullPopup = new PopupWithImage(popupFull);
 fullPopup.setEventListeners();
@@ -31,32 +39,25 @@ fullPopup.setEventListeners();
 const section = new Section({
         item: initialCards,
         renderer: (item) => {
-            const card = new Card(item, "#temlateElements", (item) => { fullPopup.open(item) });
-            const cardElements = card.generateCard();
-            section.addItem(cardElements)
+            section.addItem(createCard(item, "#temlateElements", (item) => { fullPopup.open(item) }));
         }
     },
     grid
 );
+
 section.renderItems();
 
-const popupAddCard = new Popup(popupAdd);
-popupAddCard.setEventListeners();
+const formAdd = new PopupWithForm(popupAdd, {
 
-const popupEditProfile = new Popup(popupEdit);
-popupEditProfile.setEventListeners();
+    handleFormSubmit: (formData) => {
+        section.addItem(createCard(formData, "#temlateElements", (formData) => { fullPopup.open(formData) }));
+    }
+})
 
-editButton.addEventListener("click", () => {
-    editFormValidator.enableValidation();
-    const profileInfo = userInfo.getUserInfo();
-    nameInput.value = profileInfo.profileName;
-    statusInput.value = profileInfo.profileStatus;
-    popupEditProfile.open();
-});
+formAdd.setEventListeners();
 
-const userInfo = new UserInfo({
-    profileNameSelector: showTitle,
-    profileStatusSelector: showStatus
+addButton.addEventListener("click", () => {
+    formAdd.open();
 })
 
 const profileEditForm = new PopupWithForm(popupEdit, {
@@ -69,18 +70,14 @@ const profileEditForm = new PopupWithForm(popupEdit, {
 })
 profileEditForm.setEventListeners();
 
-addButton.addEventListener("click", () => {
-    addFormValidator.enableValidation();
-    popupAddCard.open();
-})
+editButton.addEventListener("click", () => {
+    profileEditForm.open();
+    const profileInfo = userInfo.getUserInfo();
+    nameInput.value = profileInfo.profileName;
+    statusInput.value = profileInfo.profileStatus;
+});
 
-const formAddCopy = new PopupWithForm(popupAdd, {
-    handleFormSubmit: (formData) => {
-        const newCard = new Card(formData, "#temlateElements", (formData) => {
-            fullPopup.open(formData)
-        });
-        const cardElement = newCard.generateCard();
-        section.addItem(cardElement);
-    }
+const userInfo = new UserInfo({
+    profileNameSelector: showTitle,
+    profileStatusSelector: showStatus
 })
-formAddCopy.setEventListeners();

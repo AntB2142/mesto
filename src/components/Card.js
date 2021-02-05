@@ -38,20 +38,10 @@ export default class Card {
             this._handleCardClick({ name: this._name, link: this._link });
         })
     }
-    _removeEventListeners() {
-        this._element.querySelector(".grid-elements__delete").removeEventListener("click", () => {
-            this._remove();
-        })
-        this._element.querySelector(".grid-elements__like").removeEventListener("click", () => {
-            this._like();
-        })
-        this._element.querySelector(".grid-elements__img").removeEventListener("click", () => {
-            this._handleCardClick({ name: this._name, link: this._link });
-        })
-    }
+
     _remove() {
         this._element.closest(".grid-elements__element").remove();
-        this._removeEventListeners();
+        this._element = null;
     }
     _like() {
         this._element.querySelector(".grid-elements__like").classList.toggle("grid-elements__like_active");
