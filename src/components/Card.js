@@ -1,9 +1,9 @@
 export default class Card {
-    constructor(data, cardSelector, openFull) {
+    constructor(data, cardSelector, handleCardClick) {
         this._name = data.name;
         this._link = data.link;
         this._cardSelector = cardSelector;
-        this._openFull = openFull;
+        this._handleCardClick = handleCardClick;
 
     }
     _getTemplate() {
@@ -35,7 +35,7 @@ export default class Card {
             this._like();
         })
         this._element.querySelector(".grid-elements__img").addEventListener("click", () => {
-            this._openFull({ name: this._name, link: this._link });
+            this._handleCardClick({ name: this._name, link: this._link });
         })
     }
     _removeEventListeners() {
@@ -46,7 +46,7 @@ export default class Card {
             this._like();
         })
         this._element.querySelector(".grid-elements__img").removeEventListener("click", () => {
-            this._openFull({ name: this._name, link: this._link });
+            this._handleCardClick({ name: this._name, link: this._link });
         })
     }
     _remove() {

@@ -1,5 +1,5 @@
 
-# Проект 7: Место
+# Проект 8: Место
 
 ### Технологии
 * HTML5
@@ -8,6 +8,7 @@
 * Flexbox
 * Grid Layout
 * JavaScript
+* Webpack
 
 **Figma**
 
