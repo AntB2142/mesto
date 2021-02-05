@@ -47,17 +47,17 @@ const section = new Section({
 
 section.renderItems();
 
-const formAdd = new PopupWithForm(popupAdd, {
+const formAddItem = new PopupWithForm(popupAdd, {
 
     handleFormSubmit: (formData) => {
         section.addItem(createCard(formData, "#temlateElements", (formData) => { fullPopup.open(formData) }));
     }
 })
 
-formAdd.setEventListeners();
+formAddItem.setEventListeners();
 
 addButton.addEventListener("click", () => {
-    formAdd.open();
+    formAddItem.open();
 })
 
 const profileEditForm = new PopupWithForm(popupEdit, {
