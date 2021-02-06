@@ -10,6 +10,8 @@ import {
     popupAdd,
     popupFull,
     editButton,
+    submitButtonAdd,
+    submitButtonEdit,
     addButton,
     nameInput,
     statusInput,
@@ -58,6 +60,9 @@ formAddItem.setEventListeners();
 
 addButton.addEventListener("click", () => {
     formAddItem.open();
+    addFormValidator.clearSpanError();
+    addFormValidator.clearTypeError();
+    addFormValidator.validationButton(submitButtonAdd, formAdd.checkValidity());
 })
 
 const profileEditForm = new PopupWithForm(popupEdit, {
@@ -71,10 +76,17 @@ const profileEditForm = new PopupWithForm(popupEdit, {
 profileEditForm.setEventListeners();
 
 editButton.addEventListener("click", () => {
-    profileEditForm.open();
+
     const profileInfo = userInfo.getUserInfo();
     nameInput.value = profileInfo.profileName;
     statusInput.value = profileInfo.profileStatus;
+    profileEditForm.open();
+    editFormValidator.clearSpanError();
+    editFormValidator.clearTypeError();
+    editFormValidator.validationButton(submitButtonEdit, formEdit.checkValidity());
+
+
+
 });
 
 const userInfo = new UserInfo({

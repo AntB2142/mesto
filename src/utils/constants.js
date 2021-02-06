@@ -6,11 +6,12 @@ export const addButton = document.querySelector(".profile__add-button");
 export const formEdit = document.querySelector("#formEdit");
 export const nameInput = formEdit.querySelector("#name");
 export const statusInput = formEdit.querySelector("#status");
-
 export const formAdd = document.querySelector("#formAdd");
 export const grid = document.querySelector(".grid-elements");
 export const showTitle = document.querySelector(".profile__title");
 export const showStatus = document.querySelector(".profile__subtitle");
+export const submitButtonAdd = popupAdd.querySelector(".popup__submit");
+export const submitButtonEdit = popupEdit.querySelector(".popup__submit");
 
 
 
