@@ -5,6 +5,8 @@ import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import UserInfo from "../components/UserInfo.js";
 import FormValidator from "../components/FormValidator.js";
+import Api from "../components/Api.js";
+import DeletePopup from "../components/DeletePopup.js";
 import {
     popupEdit,
     popupAdd,
@@ -21,16 +23,60 @@ import {
     showStatus,
     grid,
     validationConfig,
-    initialCards
+    popupDelete,
+    editPopupAvatar,
+    avatar,
+    formAvatar,
+    updateAvatar,
+    editAvatar
 } from "../utils/constants.js";
+
+let userId = null;
+let templateCard = null;
 
 const addFormValidator = new FormValidator(validationConfig, formAdd);
 addFormValidator.enableValidation();
 const editFormValidator = new FormValidator(validationConfig, formEdit);
 editFormValidator.enableValidation();
+const avatarFormValidator = new FormValidator(validationConfig, formAvatar);
+avatarFormValidator.enableValidation();
 
-function createCard(item, popupSelector, handleCardClick) {
-    const cardItem = new Card(item, popupSelector, handleCardClick);
+
+const api = new Api({
+    url: 'https://mesto.nomoreparties.co/v1/cohort-20/',
+    headers: {
+        authorization: '485f0781-93d2-4545-87ad-d84942ee0ff3',
+        'Content-Type': 'application/json'
+    }
+})
+api.getProfileInfo()
+    .then((result) => {
+        userId = result._id;
+        userInfo.setUserInfo(result);
+        userInfo.updateAvatar(result);
+    })
+    .catch((err) => {
+        console.log(err);
+    });
+
+api.getInitialCards()
+    .then((res) => {
+        section.renderItems(res);
+    })
+    .catch((err) => {
+        console.log(err);
+    });
+
+function createCard(item) {
+    const cardItem = new Card({...item, userId },
+        "#temlateElements",
+        (item) => { fullPopup.open(item) },
+        api, {
+            handleDeleteClick: (item) => {
+                deletePopup.open(item);
+                templateCard = card;
+            }
+        });
     const card = cardItem.generateCard();
     return card;
 }
@@ -39,20 +85,26 @@ const fullPopup = new PopupWithImage(popupFull);
 fullPopup.setEventListeners();
 
 const section = new Section({
-        item: initialCards,
         renderer: (item) => {
-            section.addItem(createCard(item, "#temlateElements", (item) => { fullPopup.open(item) }));
+            section.addItem(createCard(item));
         }
     },
     grid
-);
-
-section.renderItems();
+)
 
 const formAddItem = new PopupWithForm(popupAdd, {
-
     handleFormSubmit: (formData) => {
-        section.addItem(createCard(formData, "#temlateElements", (formData) => { fullPopup.open(formData) }));
+        formAddItem.renderLoading(false);
+        api.postCard(formData)
+            .then((formData) => {
+                section.addOneItem(createCard(formData));
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+            .finally(() => {
+                formAddItem.renderLoading(true);
+            })
     }
 })
 
@@ -67,16 +119,27 @@ addButton.addEventListener("click", () => {
 
 const profileEditForm = new PopupWithForm(popupEdit, {
     handleFormSubmit: (formData) => {
-        userInfo.setUserInfo({
-            newProfileName: formData.name,
-            newProfileStatus: formData.status
+        profileEditForm.renderLoading(false);
+        api.editProfile(formData)
+            .then((formData) => {
+                userInfo.setUserInfo({
+                    newProfileName: formData.name,
+                    newProfileStatus: formData.about
+                })
+                userInfo.setUserInfo(formData);
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+
+        .finally(() => {
+            profileEditForm.renderLoading(true);
         })
     }
 })
 profileEditForm.setEventListeners();
 
 editButton.addEventListener("click", () => {
-
     const profileInfo = userInfo.getUserInfo();
     nameInput.value = profileInfo.profileName;
     statusInput.value = profileInfo.profileStatus;
@@ -84,12 +147,43 @@ editButton.addEventListener("click", () => {
     editFormValidator.clearSpanError();
     editFormValidator.clearTypeError();
     editFormValidator.validationButton(submitButtonEdit, formEdit.checkValidity());
-
-
-
 });
 
-const userInfo = new UserInfo({
-    profileNameSelector: showTitle,
-    profileStatusSelector: showStatus
+const deletePopup = new DeletePopup(popupDelete, {
+    handleFormSubmit: (data) => {
+        api.removeCard(data)
+            .then(() => {
+                templateCard.remove();
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }
+});
+
+deletePopup.setEventListeners();
+
+const avatarChange = new PopupWithForm(editPopupAvatar, {
+    handleFormSubmit: (formData) => {
+        avatarChange.renderLoading(false);
+        api.updateAvatar(formData)
+            .then((formData) => {
+                userInfo.updateAvatar(formData);
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+            .finally(() => {
+                avatarChange.renderLoading(true);
+            })
+    }
 })
+
+avatarChange.setEventListeners();
+
+editAvatar.addEventListener("click", () => {
+    avatarFormValidator.validationButton(updateAvatar, formAvatar.checkValidity());
+    avatarChange.open();
+})
+
+const userInfo = new UserInfo(showTitle, showStatus, avatar);

@@ -9,6 +9,7 @@
     align-self: center;
     padding: 0;
     cursor: pointer;
+    transition: .4s ease;
 }
 
 @media screen and (max-width: 768px) {

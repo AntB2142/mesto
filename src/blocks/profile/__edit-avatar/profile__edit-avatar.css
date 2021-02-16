@@ -1,0 +1,17 @@
+.profile__edit-avatar {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    border: 0;
+    background: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    cursor: pointer;
+    transition: .2s ease;
+    outline: none;
+}
+
+.profile__edit-avatar:hover {
+    background: url("../../../images/avatarEditIcon.png") center no-repeat rgba(0, 0, 0, .8);
+}

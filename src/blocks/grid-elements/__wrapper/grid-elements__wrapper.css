@@ -1,5 +1,8 @@
 .grid-elements__wrapper {
-    position: relative;
-    margin: 25px 0 31px 0px;
     display: flex;
+    min-height: 79px;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 87.24%;
+    margin: 0 auto;
 }

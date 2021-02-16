@@ -1,14 +1,16 @@
 .grid-elements__like {
+    width: 20.76px;
+    height: 18.13px;
     background-image: url("../../../images/like.svg");
-    width: 100%;
-    max-width: 20.76px;
-    min-height: 18.13px;
-    margin: auto;
+    background-position: center;
+    background-color: transparent;
+    background-repeat: no-repeat;
     border: 0;
-    border-radius: 0;
-    background-color: rgba(0, 0, 0, 0);
-    outline: none;
+    padding: 0;
     cursor: pointer;
+    flex-shrink: 0;
+    transition: .4s ease;
+    margin-bottom: 3px;
 }
 
 .grid-elements__like:hover {
@@ -16,6 +18,5 @@
 }
 
 .grid-elements__like:focus {
-    border: 0;
     outline: none;
 }

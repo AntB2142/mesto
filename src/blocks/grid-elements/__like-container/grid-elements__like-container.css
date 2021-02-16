@@ -1,0 +1,5 @@
+.grid-elements__like-container {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
