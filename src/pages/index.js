@@ -49,23 +49,32 @@ const api = new Api({
         'Content-Type': 'application/json'
     }
 })
-api.getProfileInfo()
-    .then((result) => {
-        userId = result._id;
-        userInfo.setUserInfo(result);
-        userInfo.updateAvatar(result);
-    })
-    .catch((err) => {
-        console.log(err);
-    });
 
-api.getInitialCards()
-    .then((res) => {
-        section.renderItems(res);
-    })
-    .catch((err) => {
-        console.log(err);
-    });
+const getProfilePromise = new Promise(() => {
+    api.getProfileInfo()
+        .then((result) => {
+            userId = result._id;
+            userInfo.setUserInfo(result);
+            userInfo.updateAvatar(result);
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+});
+
+const getInitialCardPromise = new Promise(() => {
+    api.getInitialCards()
+        .then((res) => {
+            section.renderItems(res);
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+});
+Promise.all([getProfilePromise, getInitialCardPromise]).then((resolve, subj) => {
+    console.log(resolve);
+    console.log(subj);
+});
 
 function createCard(item) {
     const cardItem = new Card({...item, userId },
@@ -98,6 +107,7 @@ const formAddItem = new PopupWithForm(popupAdd, {
         api.postCard(formData)
             .then((formData) => {
                 section.addOneItem(createCard(formData));
+                formAddItem.close();
             })
             .catch((err) => {
                 console.log(err);
@@ -127,6 +137,7 @@ const profileEditForm = new PopupWithForm(popupEdit, {
                     newProfileStatus: formData.about
                 })
                 userInfo.setUserInfo(formData);
+                profileEditForm.close();
             })
             .catch((err) => {
                 console.log(err);
@@ -154,6 +165,7 @@ const deletePopup = new DeletePopup(popupDelete, {
         api.removeCard(data)
             .then(() => {
                 templateCard.remove();
+                deletePopup.close();
             })
             .catch((err) => {
                 console.log(err);
@@ -169,6 +181,7 @@ const avatarChange = new PopupWithForm(editPopupAvatar, {
         api.updateAvatar(formData)
             .then((formData) => {
                 userInfo.updateAvatar(formData);
+                avatarChange.close();
             })
             .catch((err) => {
                 console.log(err);

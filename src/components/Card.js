@@ -47,10 +47,10 @@ export default class Card {
         this._likeSymbol.addEventListener("click", () => {
             if (this._likeSymbol.classList.contains("grid-elements__like_active")) {
                 this._deleteLike();
-                this._offLike();
+
             } else {
                 this._handleLikeClick();
-                this._onLike();
+
             }
         })
 
@@ -75,7 +75,7 @@ export default class Card {
         this._likeSymbol.classList.remove("grid-elements__like_active");
     }
     findLike() {
-        return Boolean(this.likeId.find((obj => obj._id == this._userId)));
+        return Boolean(this.likeId.find((obj => obj._id !== this._userId)));
     }
     myLikeCard(myLike) {
         if (myLike) {
@@ -89,6 +89,7 @@ export default class Card {
             .then((res) => {
                 this._likes = res.likes.length;
                 this._likeNumber.textContent = this._likes;
+                this._onLike();
             })
     }
     _deleteLike() {
@@ -97,6 +98,7 @@ export default class Card {
             .then((res) => {
                 this._likes = res.likes.length;
                 this._likeNumber.textContent = this._likes;
+                this._offLike();
             })
     }
 }
